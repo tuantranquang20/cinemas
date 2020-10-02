@@ -18,7 +18,9 @@ import i18 from '@i18';
         detail: i18.t("detail"),
         login_phonenumber: i18.t("login_phonenumber"),
         phone_number: i18.t("phone_number"),
-        network_err: i18.t("network_err")
+        network_err: i18.t("network_err"),
+        showing: i18.t("showing"),
+        will_show: i18.t("will_show")
         }
  
         export default strings

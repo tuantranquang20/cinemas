@@ -1,4 +1,5 @@
 const images = {
+    
     ic_arrow_right: require("./images/ic_arrow_right.png"),
     ic_default_user: require("./images/ic_default_user.png"),
     ic_home: require("./images/ic_home.png"),

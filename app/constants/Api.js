@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import axios from 'axios';
 import {AsyncStorage, Alert} from 'react-native';
 import NavigationUtil from '../navigation/NavigationUtil';
@@ -6,14 +7,13 @@ import I18n from '../i18n/i18n';
 function createAxios() {
   // AsyncStorage.setItem("token", '773DE1FE9732F26F7552BC921CBE347E')
   var axiosInstant = axios.create();
-  axiosInstant.defaults.baseURL =
-    'https://maps.googleapis.com/maps/api/directions/';
+  axiosInstant.defaults.baseURL = 'http://localhost:3030/';
   axiosInstant.defaults.timeout = 20000;
   axiosInstant.defaults.headers = {'Content-Type': 'application/json'};
 
   axiosInstant.interceptors.request.use(
     async (config) => {
-      config.headers.token = await AsyncStorage.getItem('token');
+      // config.headers.token = await AsyncStorage.getItem('token');
       return config;
     },
     (error) => Promise.reject(error),
@@ -60,9 +60,7 @@ export const requestLogin = (payload) => {
 };
 
 export const requestHomeData = (deviceID = '') => {
-  return handleResult(
-    getAxios.get(`api/Service/GetHomeScreen?deviceID=${deviceID}`),
-  );
+  return handleResult(getAxios.get('home'));
 };
 export const requestGetLocation = (payload) => {
   const {userLatitude, userLongitude, placeId} = payload;
