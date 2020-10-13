@@ -35,11 +35,13 @@ const RNHeader = (props) => {
               }}>
               <IconBack />
             </TouchableOpacity>
-          ) : leftButton ? (
-            <TouchableOpacity style={styles.leftComp} onPress={leftPress}>
-              {leftButton}
-            </TouchableOpacity>
-          ) : null}
+          ) : (
+            leftButton && (
+              <TouchableOpacity style={styles.leftComp} onPress={leftPress}>
+                {leftButton}
+              </TouchableOpacity>
+            )
+          )}
         </View>
       }
       centerComponent={
@@ -47,7 +49,6 @@ const RNHeader = (props) => {
           style={[
             {
               fontSize: 18,
-              fontFamily: R.fonts.roboto_regular,
             },
             {color: color ? color : 'white'},
           ]}>
@@ -55,12 +56,10 @@ const RNHeader = (props) => {
         </Text>
       }
       rightComponent={
-        rightButton ? (
+        rightButton && (
           <View>
             {rightButton && <View style={styles.rightComp}>{rightButton}</View>}
           </View>
-        ) : (
-          <View></View>
         )
       }
       statusBarProps={{

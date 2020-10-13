@@ -5,7 +5,7 @@
  * @format
  * @flow
  */
-
+//AIzaSyCRMthrHMuz3v78JQkg-RiGnAyL600NtG8
 import React, {Component} from 'react';
 import AppNavigator from './app/navigation/AppNavigator';
 import NavigationUtil from './app/navigation/NavigationUtil';
@@ -14,7 +14,6 @@ import store from './app/redux/store';
 import Reactotron from 'reactotron-react-native';
 import OneSignal from 'react-native-onesignal'; // Import package from node modules
 import codePush from 'react-native-code-push';
-
 class App extends Component {
   render() {
     return (

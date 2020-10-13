@@ -1,33 +1,29 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
+import {scale} from 'react-native-size-matters';
+import {IconShowPass} from '@app/assets/svg/svg';
 
-class VInput extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
-  render() {
-    const {inputStyle} = this.props;
-    return (
-      <View>
-        <TextInput
-          autoCapitalize="none"
-          style={[styles.container, inputStyle]}
-          placeholder="Where are you go?"
-        />
-      </View>
-    );
-  }
+function VInput(props) {
+  const {inputStyle, placeholder, onChangeText, value, ...rest} = props;
+  return (
+    <View style={styles.container}>
+      <TextInput
+        autoCapitalize="none"
+        style={[styles.inputContainer, inputStyle]}
+        placeholder={placeholder}
+        onChangeText={onChangeText}
+        value={value}
+        {...rest}
+      />
+    </View>
+  );
 }
 
 export default VInput;
 
 const styles = StyleSheet.create({
-  container: {
-    height: 40,
-    marginTop: 50,
-    padding: 5,
-    backgroundColor: 'white',
+  inputContainer: {
+    height: scale(40),
+    padding: scale(5),
   },
 });

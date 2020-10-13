@@ -5,6 +5,8 @@ import i18 from '@i18';
         notification: i18.t("notification"),
         user: i18.t("user"),
         account: i18.t("account"),
+        voucher: i18.t("voucher"),
+        product: i18.t("product"),
         action_title_cancel: i18.t("action_title_cancel"),
         action_title_ok: i18.t("action_title_ok"),
         update_user: i18.t("update_user"),

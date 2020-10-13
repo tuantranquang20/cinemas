@@ -14,7 +14,9 @@
 #import <React/RCTLinkingManager.h>
 #import <GoogleMaps/GoogleMaps.h>
 @implementation AppDelegate
-
+-(BOOL)prefersHomeIndicatorAutoHidden{
+   return YES;
+}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
   [GMSServices provideAPIKey:@"AIzaSyDGy34cdjbDFjJW5IiY_2S9oSfNCM9OcVg"];

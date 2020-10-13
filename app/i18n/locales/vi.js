@@ -4,6 +4,8 @@ export default {
   notification: 'Thông báo',
   user: 'Người dùng',
   account: 'Tài khoản',
+  voucher : "Voucher",
+  product : "Sản phẩm",
 
   // Action
   action_title_cancel: 'Bỏ qua',

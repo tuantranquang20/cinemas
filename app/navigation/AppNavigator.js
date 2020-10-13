@@ -1,37 +1,44 @@
 import React from 'react';
 import {createAppContainer, createSwitchNavigator} from 'react-navigation';
 import {createStackNavigator} from 'react-navigation-stack';
-import {
-  createBottomTabNavigator,
-  BottomTabBar,
-  createMaterialTopTabNavigator,
-} from 'react-navigation-tabs';
+import {createBottomTabNavigator, BottomTabBar} from 'react-navigation-tabs';
 import AuthLoadingScreen from '../screens/auth/AuthLoadingScreen';
 import LoginScreen from '../screens/auth/LoginScreen';
 import RegisterScreen from '../screens/auth/RegisterScreen';
 import ForgotPasswordScreen from '../screens/auth/ForgotPasswordScreen';
 import HomeScreen from '@app/screens/home/HomeScreen';
 import UserScreen from '@app/screens/user/UserScreen';
+import NotificationScreen from '@app/screens/notification/NotificationScreen';
+import ProductScreen from '@app/screens/product/ProductScreen';
+import VoucherScreen from '@app/screens/voucher/VoucherScreen';
 import SCREEN_ROUTER from '@constant';
 import R from '@R';
 import * as theme from '@theme';
 
-import {Image} from 'react-native';
+import {Image, Text} from 'react-native';
+import reactotron from 'reactotron-react-native';
+import {scale} from 'react-native-size-matters';
 const TabBarComponent = (props) => <BottomTabBar {...props} />;
 
-const Auth = createStackNavigator({
-  [SCREEN_ROUTER.LOGIN]: LoginScreen,
-  [SCREEN_ROUTER.REGISTER]: RegisterScreen,
-  [SCREEN_ROUTER.FORGOT_PASS]: ForgotPasswordScreen,
-});
+const Auth = createStackNavigator(
+  {
+    [SCREEN_ROUTER.LOGIN]: LoginScreen,
+    [SCREEN_ROUTER.REGISTER]: RegisterScreen,
+    [SCREEN_ROUTER.FORGOT_PASS]: ForgotPasswordScreen,
+  },
+  {
+    defaultNavigationOptions: {
+      header: null,
+    },
+  },
+);
 
-//Nâng React navigation lên v5
 const tabbarIcons = {
+  [SCREEN_ROUTER.PRODUCT]: R.images.icon_product,
+  [SCREEN_ROUTER.VOUCHER]: R.images.icon_voucher,
   [SCREEN_ROUTER.HOME]: R.images.home,
-  [SCREEN_ROUTER.PRODUCT]: R.images.Tv,
-  [SCREEN_ROUTER.POINT]: R.images.gift,
-  [SCREEN_ROUTER.NOTIFiCATION]: R.images.ring,
-  [SCREEN_ROUTER.USER]: R.images.user,
+  [SCREEN_ROUTER.NOTIFiCATION]: R.images.icon_notification,
+  [SCREEN_ROUTER.USER]: R.images.icon_user,
 };
 
 const getTabBarIcon = (navigation, focused, tintColor) => {
@@ -46,14 +53,54 @@ const getTabBarIcon = (navigation, focused, tintColor) => {
     />
   );
 };
-
-const Main = createBottomTabNavigator(
+const BottomTab = createBottomTabNavigator(
   {
+    [SCREEN_ROUTER.PRODUCT]: {
+      screen: ProductScreen,
+      title: R.strings.product,
+      navigationOptions: {
+        tabBarLabel: R.strings.product,
+      },
+    },
+    [SCREEN_ROUTER.VOUCHER]: {
+      screen: VoucherScreen,
+      title: R.strings.voucher,
+      navigationOptions: {
+        tabBarLabel: R.strings.voucher,
+      },
+    },
     [SCREEN_ROUTER.HOME]: {
       screen: HomeScreen,
       title: R.strings.home,
       navigationOptions: {
-        tabBarLabel: R.strings.home,
+        tabBarLabel: () => {
+          return (
+            <>
+              <Image
+                source={R.images.icon_home}
+                style={
+                  theme.dimension.width > 365
+                    ? {
+                        width: scale(65),
+                        height: scale(65),
+                      }
+                    : {
+                        width: scale(60),
+                        height: scale(60),
+                      }
+                }
+              />
+              <Text>{R.strings.home}</Text>
+            </>
+          );
+        },
+      },
+    },
+    [SCREEN_ROUTER.NOTIFiCATION]: {
+      screen: NotificationScreen,
+      title: R.strings.user,
+      navigationOptions: {
+        tabBarLabel: R.strings.notification,
       },
     },
     [SCREEN_ROUTER.USER]: {
@@ -72,7 +119,7 @@ const Main = createBottomTabNavigator(
     tabBarOptions: {
       activeBackgroundColor: theme.colors.bottombarBg,
       inactiveBackgroundColor: theme.colors.bottombarBg,
-      inactiveTintColor: theme.colors.inactive,
+      inactiveTintColor: theme.colors.primaryDark1,
       activeTintColor: theme.colors.active,
     },
     // cái này là custom cái tabbar bên dưới
@@ -92,6 +139,18 @@ const Main = createBottomTabNavigator(
     initialRouteName: SCREEN_ROUTER.HOME,
   },
 );
+
+const Main = createStackNavigator(
+  {
+    [SCREEN_ROUTER.BOTTOM_BAR]: BottomTab,
+    [SCREEN_ROUTER.USER]: UserScreen,
+  },
+  {
+    defaultNavigationOptions: {
+      header: null,
+    },
+  },
+);
 // var TopNavigation = createStackNavigator(createMaterialTopTabNavigator({
 //     [SCREEN_ROUTER.TAB_1] : 'Home',
 //     [SCREEN_ROUTER.TAB_2] : 'Product' ,
@@ -106,7 +165,7 @@ export default createAppContainer(
       [SCREEN_ROUTER.MAIN]: Main,
     },
     {
-      initialRouteName: SCREEN_ROUTER.MAIN,
+      initialRouteName: SCREEN_ROUTER.AUTH,
     },
   ),
 );

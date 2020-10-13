@@ -5,7 +5,7 @@ const colors = {
   primary: '#f3f3f3',
   primaryDark: '#125183',
   primaryDark1: '#2E384D',
-
+  white: '#fff',
   bottombarBg: '#fafafa',
   headerColor: '#1b75bc',
   headerTextColor: '#FFFF',
@@ -14,6 +14,12 @@ const colors = {
   inactive: 'black',
   indicator: '#24277e',
   borderTopColor: '#dedede',
+  red: '#FF0000',
+  blueOpacity: 'rgba(27, 117, 188, 0.5)',
+  yellow: '#FFFF00',
+  tomato: '#EA4335',
+  gray: '#707070',
+  blue : "#0089CE"
 };
 
 const sizes = {
