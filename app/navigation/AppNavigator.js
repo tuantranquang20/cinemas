@@ -7,10 +7,12 @@ import LoginScreen from '../screens/auth/LoginScreen';
 import RegisterScreen from '../screens/auth/RegisterScreen';
 import ForgotPasswordScreen from '../screens/auth/ForgotPasswordScreen';
 import HomeScreen from '@app/screens/home/HomeScreen';
+import CalenderBookingScreen from '@app/screens/home/booking/CalenderBookingScreen';
 import UserScreen from '@app/screens/user/UserScreen';
 import NotificationScreen from '@app/screens/notification/NotificationScreen';
 import ProductScreen from '@app/screens/product/ProductScreen';
 import VoucherScreen from '@app/screens/voucher/VoucherScreen';
+import BookingScreen from '@app/screens/home/booking/BookingScreen';
 import SCREEN_ROUTER from '@constant';
 import R from '@R';
 import * as theme from '@theme';
@@ -18,6 +20,7 @@ import * as theme from '@theme';
 import {Image, Text} from 'react-native';
 import reactotron from 'reactotron-react-native';
 import {scale} from 'react-native-size-matters';
+import ChatScreen from '@app/screens/chat/ChatScreen';
 const TabBarComponent = (props) => <BottomTabBar {...props} />;
 
 const Auth = createStackNavigator(
@@ -28,7 +31,7 @@ const Auth = createStackNavigator(
   },
   {
     defaultNavigationOptions: {
-      header: null,
+      headerShown: false
     },
   },
 );
@@ -63,7 +66,7 @@ const BottomTab = createBottomTabNavigator(
       },
     },
     [SCREEN_ROUTER.VOUCHER]: {
-      screen: VoucherScreen,
+      screen: BookingScreen,
       title: R.strings.voucher,
       navigationOptions: {
         tabBarLabel: R.strings.voucher,
@@ -144,10 +147,12 @@ const Main = createStackNavigator(
   {
     [SCREEN_ROUTER.BOTTOM_BAR]: BottomTab,
     [SCREEN_ROUTER.USER]: UserScreen,
+    [SCREEN_ROUTER.CALENDER_BOOKING]: CalenderBookingScreen,
+    [SCREEN_ROUTER.BOOKING_SCREEN]: BookingScreen,
   },
   {
     defaultNavigationOptions: {
-      header: null,
+      headerShown: false,
     },
   },
 );
@@ -165,7 +170,7 @@ export default createAppContainer(
       [SCREEN_ROUTER.MAIN]: Main,
     },
     {
-      initialRouteName: SCREEN_ROUTER.AUTH,
+      initialRouteName: SCREEN_ROUTER.AUTH_LOADING,
     },
   ),
 );

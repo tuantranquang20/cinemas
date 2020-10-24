@@ -50,7 +50,10 @@ const HomeScreen = () => {
   const rightHeader = () => {
     return (
       <View style={styles.btnRightHeader}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => {
+            NavigationUtil.navigate(SCREEN_ROUTER.VOUCHER);
+          }}>
           <IconTicket style={styles.ticket} />
         </TouchableOpacity>
         <TouchableOpacity>
@@ -89,7 +92,11 @@ const HomeScreen = () => {
             phút
           </Text>
         </View>
-        <TouchableOpacity style={styles.btnBook}>
+        <TouchableOpacity
+          style={styles.btnBook}
+          onPress={() =>
+            NavigationUtil.navigate(SCREEN_ROUTER.CALENDER_BOOKING)
+          }>
           <Text style={styles.txtBook}>Đặt vé</Text>
         </TouchableOpacity>
       </View>
@@ -105,7 +112,10 @@ const HomeScreen = () => {
       <View style={styles.containerProduct}>
         <View style={styles.viewProduct}>
           <Text style={styles.txtWhite}>SẢN PHẨM</Text>
-          <Text style={styles.txtWhite}>Tất cả</Text>
+          <TouchableOpacity
+            onPress={() => NavigationUtil.navigate(SCREEN_ROUTER.PRODUCT)}>
+            <Text style={styles.txtWhite}>Tất cả</Text>
+          </TouchableOpacity>
         </View>
         <FlatList
           showsHorizontalScrollIndicator={false}
@@ -126,7 +136,10 @@ const HomeScreen = () => {
       <View style={styles.containerProduct}>
         <View style={styles.viewProduct}>
           <Text style={styles.txtWhite}>TIN MỚI</Text>
-          <Text style={styles.txtWhite}>Tất cả</Text>
+          <TouchableOpacity
+            onPress={() => NavigationUtil.navigate(SCREEN_ROUTER.NOTIFiCATION)}>
+            <Text style={styles.txtWhite}>Tất cả</Text>
+          </TouchableOpacity>
         </View>
         <FlatList
           showsHorizontalScrollIndicator={false}

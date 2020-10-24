@@ -14,6 +14,7 @@ import store from './app/redux/store';
 import Reactotron from 'reactotron-react-native';
 import OneSignal from 'react-native-onesignal'; // Import package from node modules
 import codePush from 'react-native-code-push';
+import reactotron from 'reactotron-react-native';
 class App extends Component {
   render() {
     return (
@@ -54,7 +55,7 @@ class App extends Component {
   }
 
   onIds(device) {
-    Reactotron.log('Device info: ', device);
+    reactotron.log('Device info: ', device);
   }
 }
 

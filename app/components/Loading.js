@@ -11,13 +11,13 @@ import {
   UIActivityIndicator,
   WaveIndicator,
 } from 'react-native-indicators';
-import theme from '@app/constants/Theme';
+import {colors} from '@app/constants/Theme';
 import {StyleSheet} from 'react-native';
-export default function Loading() {
+export default function Loading(props) {
   const {color} = props;
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <BarIndicator color={color || theme.colors.primary} />
+      <SkypeIndicator color={color || colors.headerColor} />
     </View>
   );
 }

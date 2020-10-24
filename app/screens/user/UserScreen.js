@@ -3,16 +3,21 @@ import Card from '@app/components/Card';
 import FormUser from '@app/components/FormUser';
 import ScreenComponent from '@app/components/ScreenComponent';
 import {colors} from '@app/constants/Theme';
+import NavigationUtil from '@app/navigation/NavigationUtil';
+import AsyncStorage from '@react-native-community/async-storage';
 import React from 'react';
+import {useDispatch} from 'react-redux';
 import {
-  Dimensions,
   Image,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
+  Alert,
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
+import SCREEN_ROUTER from '@constant';
+import { resetAction } from '@app/redux/actions';
 
 const action = [
   {
@@ -43,6 +48,7 @@ const action = [
 ];
 
 const UserScreen = () => {
+  const dispatch = useDispatch();
   const renderAvt = () => {
     return (
       <Card style={styles.headerAvt}>
@@ -52,7 +58,7 @@ const UserScreen = () => {
               style={styles.avt}
               source={{
                 uri:
-                  'https://scontent.fhan2-3.fna.fbcdn.net/v/t1.0-9/31363286_584256105263011_7349413226481713152_o.jpg?_nc_cat=108&_nc_sid=174925&_nc_ohc=U3OzpC-DmZQAX9yYD3I&_nc_ht=scontent.fhan2-3.fna&oh=bd4d2a95d50c33e9b47d1d0ddda8d30c&oe=5FA6E54A',
+                  'https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=1116824365428401&height=200&width=200&ext=1605705026&hash=AeTpMWJ_ac-RkhQEO1Q',
               }}
             />
           </View>
@@ -66,15 +72,37 @@ const UserScreen = () => {
       </Card>
     );
   };
+  const handleLogOut = () => {
+    Alert.alert(
+      'Thông báo',
+      'Bạn có chắc muốn đăng xuất ?',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'OK',
+          onPress: async () => {
+            await AsyncStorage.removeItem('TOKEN');
+            dispatch(resetAction());
+            NavigationUtil.navigate(SCREEN_ROUTER.AUTH);
+          },
+        },
+      ],
+      {cancelable: false},
+    );
+  };
   const renderBodyAction = () => {
     return (
       <Card style={styles.bodyAction}>
         {action.map((el) => (
-          <FormUser imagePath={el.img} title={el.title} />
+          <FormUser key={el.img} imagePath={el.img} title={el.title} />
         ))}
-        <Text style={styles.logOut}>
-          Đăng xuất 
-        </Text>
+        <TouchableOpacity onPress={handleLogOut}>
+          <Text style={styles.logOut}>Đăng xuất</Text>
+        </TouchableOpacity>
       </Card>
     );
   };
@@ -132,10 +160,10 @@ const styles = StyleSheet.create({
     color: colors.gray,
     marginTop: scale(5),
   },
-  logOut:{
-    marginVertical : scale(15),
-    color : colors.tomato,
-    fontWeight : "500",
-    fontSize : scale(15)
-  }
+  logOut: {
+    marginVertical: scale(15),
+    color: colors.tomato,
+    fontWeight: '500',
+    fontSize: scale(15),
+  },
 });

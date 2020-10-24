@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   image: {
     width: width / 2,
     height: width / 2,
-    resizeMode: 'contain',
+    // resizeMode: 'contain',
   },
   button: {
     backgroundColor: colors.primary,

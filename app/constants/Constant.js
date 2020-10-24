@@ -1,5 +1,5 @@
 export default SCREEN_ROUTER = {
-  BOTTOM_BAR :"BottomBar",
+  BOTTOM_BAR: 'BottomBar',
   MAIN: 'Main',
   AUTH: 'Auth',
   HOME: 'Home',
@@ -12,6 +12,8 @@ export default SCREEN_ROUTER = {
   PRODUCT: 'Product',
   POINT: 'Point',
   NOTIFiCATION: 'Notification',
+  CALENDER_BOOKING: 'CalenderBooking',
+  BOOKING_SCREEN: 'bookingScreen',
   TAB_1: 'Tab_1',
   TAB_2: 'Tab_2',
   TAB_3: 'Tab_3',

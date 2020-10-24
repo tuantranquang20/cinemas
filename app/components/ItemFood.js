@@ -9,9 +9,11 @@ import {colors} from '@app/constants/Theme';
 import {IconStar} from '@app/assets/svg/svg';
 
 const ItemFood = (props) => {
-  const {item} = props;
+  const {item, containerStyle} = props;
   return (
-    <TouchableOpacity onPress={props.onPress} style={styles.itemContainer}>
+    <TouchableOpacity
+      onPress={props.onPress}
+      style={[styles.itemContainer, containerStyle]}>
       {item.discount ? (
         <View style={styles.position}>
           <Image style={styles.discount} source={R.images.ic_discount} />

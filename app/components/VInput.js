@@ -3,7 +3,8 @@ import {View, TextInput, StyleSheet} from 'react-native';
 import {scale} from 'react-native-size-matters';
 import {IconShowPass} from '@app/assets/svg/svg';
 
-function VInput(props) {
+//custom warning messgase
+function VInput(props) { 
   const {inputStyle, placeholder, onChangeText, value, ...rest} = props;
   return (
     <View style={styles.container}>

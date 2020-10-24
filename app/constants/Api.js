@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
 import axios from 'axios';
-import {AsyncStorage, Alert} from 'react-native';
+import {Alert} from 'react-native';
 import NavigationUtil from '../navigation/NavigationUtil';
 import I18n from '../i18n/i18n';
-
+import AsyncStorage from '@react-native-community/async-storage';
 function createAxios() {
   // AsyncStorage.setItem("token", '773DE1FE9732F26F7552BC921CBE347E')
   var axiosInstant = axios.create();
@@ -13,7 +13,7 @@ function createAxios() {
 
   axiosInstant.interceptors.request.use(
     async (config) => {
-      // config.headers.token = await AsyncStorage.getItem('token');
+      config.headers.token = await AsyncStorage.getItem('TOKEN');
       return config;
     },
     (error) => Promise.reject(error),
@@ -52,16 +52,30 @@ function handleResult(api) {
 
 export const requestLogin = (payload) => {
   return handleResult(
-    getAxios.post('api/Service/LoginApp', {
-      value: payload.value,
-      type: payload.type,
+    getAxios.post('users/login', {
+      phone: payload.phone,
+      password: payload.password,
     }),
   );
 };
 
-export const requestHomeData = (deviceID = '') => {
+export const requestHomeData = () => {
   return handleResult(getAxios.get('home'));
 };
+export const requestProduct = (payload) => {
+  // const pr = price[gte];
+  return handleResult(
+    getAxios.get('product', {
+      params: {
+        page: 1,
+        limit: 10,
+        // sort: `${(price, rating, discount)}`,
+        // [pr]: 3000,
+      },
+    }),
+  );
+};
+
 export const requestGetLocation = (payload) => {
   const {userLatitude, userLongitude, placeId} = payload;
   return handleResult(

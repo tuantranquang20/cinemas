@@ -1,6 +1,7 @@
 const images = {
     
     ic_arrow_right: require("./images/ic_arrow_right.png"),
+    ic_cart_empty: require("./images/ic_cart_empty.png"),
     ic_default_user: require("./images/ic_default_user.png"),
     ic_discount: require("./images/ic_discount.png"),
     ic_fb: require("./images/ic_fb.png"),
@@ -10,6 +11,7 @@ const images = {
     ic_hot: require("./images/ic_hot.png"),
     ic_infomation: require("./images/ic_infomation.png"),
     ic_location: require("./images/ic_location.png"),
+    ic_noti: require("./images/ic_noti.png"),
     ic_order: require("./images/ic_order.png"),
     ic_profile: require("./images/ic_profile.png"),
     ic_qr: require("./images/ic_qr.png"),
@@ -17,6 +19,7 @@ const images = {
     ic_store: require("./images/ic_store.png"),
     ic_update: require("./images/ic_update.png"),
     ic_user: require("./images/ic_user.png"),
+    icon_add: require("./images/icon_add.png"),
     icon_home: require("./images/icon_home.png"),
     icon_notification: require("./images/icon_notification.png"),
     icon_product: require("./images/icon_product.png"),
