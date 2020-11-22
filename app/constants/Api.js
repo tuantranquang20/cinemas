@@ -7,13 +7,16 @@ import AsyncStorage from '@react-native-community/async-storage';
 function createAxios() {
   // AsyncStorage.setItem("token", '773DE1FE9732F26F7552BC921CBE347E')
   var axiosInstant = axios.create();
-  axiosInstant.defaults.baseURL = 'http://localhost:3030/';
+  axiosInstant.defaults.baseURL = 'http://localhost:3000/';
   axiosInstant.defaults.timeout = 20000;
   axiosInstant.defaults.headers = {'Content-Type': 'application/json'};
 
   axiosInstant.interceptors.request.use(
     async (config) => {
-      config.headers.token = await AsyncStorage.getItem('TOKEN');
+      config.headers.Authorization = `Bearer ${await AsyncStorage.getItem(
+        'TOKEN',
+      )}`;
+      // config.headers.token = await AsyncStorage.getItem('TOKEN');
       return config;
     },
     (error) => Promise.reject(error),
@@ -57,6 +60,9 @@ export const requestLogin = (payload) => {
       password: payload.password,
     }),
   );
+};
+export const requestGetUserInfo = (payload) => {
+  return handleResult(getAxios.get('users'));
 };
 
 export const requestHomeData = () => {

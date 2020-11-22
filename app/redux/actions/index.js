@@ -53,13 +53,15 @@ export const loginRequest = (payload) => {
     payload,
   };
 };
-export const loginRequestSuccess = () => ({
-  type: LOGIN_SUCCESS,
-  payload: {},
-});
-export const loginRequestFail = () => ({
+export const loginRequestSuccess = (payload) => {
+  return {
+    type: LOGIN_SUCCESS,
+    payload,
+  };
+};
+export const loginRequestFail = (payload) => ({
   type: LOGIN_FAIL,
-  payload: {},
+  payload,
 });
 
 //actions product

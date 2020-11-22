@@ -8,6 +8,7 @@ import {
   Alert,
 } from 'react-native';
 import R from '@app/assets/R';
+import { colors } from '@app/constants/Theme';
 
 export default function FormUser(props) {
   const {imagePath, title, isLast, onPress} = props;
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
     width: 22,
     height: 22,
     resizeMode: 'contain',
+    tintColor : colors.blackOpacity
   },
   txt_func: {
     marginLeft: 17,

@@ -14,6 +14,8 @@ export default SCREEN_ROUTER = {
   NOTIFiCATION: 'Notification',
   CALENDER_BOOKING: 'CalenderBooking',
   BOOKING_SCREEN: 'bookingScreen',
+  CHAT_SCREEN : "ChatScreen",
+  ROOM_SCREEN : "RoomScreen",
   TAB_1: 'Tab_1',
   TAB_2: 'Tab_2',
   TAB_3: 'Tab_3',

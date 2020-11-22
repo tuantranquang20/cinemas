@@ -10,7 +10,6 @@ const ProductScreen = () => {
   const dispatch = useDispatch();
   const dataProduct = useSelector((state) => state.productReducer);
   const userFBReducer = useSelector((state) => state.userFBReducer);
-  console.log(userFBReducer, 'aaa');
   const renderItemProduct = ({item}) => {
     return <ItemFood item={item} containerStyle={styles.item} />;
   };

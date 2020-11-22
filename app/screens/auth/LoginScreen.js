@@ -88,19 +88,26 @@ function LoginScreen() {
       if (error) {
         console.log('Error fetching data: ' + JSON.stringify(error));
       } else {
-        // const resultString = JSON.stringify(result, null, 2);
+        const resultString = JSON.stringify(result, null, 2);
+        try {
+          (async () => {
+            await AsyncStorage.setItem('USER_FB', resultString);
+          })();
+        } catch (error) {
+          console.warn(error);
+        }
         // setState({
         //   ...state,
         //   pictureURL: result?.picture?.data?.url,
         //   pictureURLByID: `https://graph.facebook.com/${result?.id}/picture`,
         // });
-        dispatch(
-          setUserFB({
-            pictureURL: result?.picture?.data?.url,
-            pictureURLByID: `https://graph.facebook.com/${result?.id}/picture`,
-            userID: result?.id,
-          }),
-        );
+        // dispatch(
+        //   setUserFB({
+        //     pictureURL: result?.picture?.data?.url,
+        //     pictureURLByID: `https://graph.facebook.com/${result?.id}/picture`,
+        //     userID: result?.id,
+        //   }),
+        // );
       }
     },
   );

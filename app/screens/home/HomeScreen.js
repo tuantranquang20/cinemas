@@ -95,7 +95,9 @@ const HomeScreen = () => {
         <TouchableOpacity
           style={styles.btnBook}
           onPress={() =>
-            NavigationUtil.navigate(SCREEN_ROUTER.CALENDER_BOOKING)
+            NavigationUtil.navigate(SCREEN_ROUTER.CALENDER_BOOKING, {
+              params: data?.movies[state.indexItem],
+            })
           }>
           <Text style={styles.txtBook}>Đặt vé</Text>
         </TouchableOpacity>

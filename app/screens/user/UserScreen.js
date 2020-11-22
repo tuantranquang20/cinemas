@@ -5,7 +5,7 @@ import ScreenComponent from '@app/components/ScreenComponent';
 import {colors} from '@app/constants/Theme';
 import NavigationUtil from '@app/navigation/NavigationUtil';
 import AsyncStorage from '@react-native-community/async-storage';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {
   Image,
@@ -17,7 +17,8 @@ import {
 } from 'react-native';
 import {scale} from 'react-native-size-matters';
 import SCREEN_ROUTER from '@constant';
-import { resetAction } from '@app/redux/actions';
+import {resetAction} from '@app/redux/actions';
+import {requestGetUserInfo} from '@app/constants/Api';
 
 const action = [
   {
@@ -41,6 +42,11 @@ const action = [
     screen: '',
   },
   {
+    img: R.images.chat,
+    title: 'Chat với ADMIN',
+    screen: SCREEN_ROUTER.CHAT_SCREEN,
+  },
+  {
     img: R.images.ic_history,
     title: 'Lịch sử giao dịch',
     screen: '',
@@ -49,6 +55,26 @@ const action = [
 
 const UserScreen = () => {
   const dispatch = useDispatch();
+  const [user, setUser] = useState({
+    userID: null,
+    picture: null,
+    name: null,
+  });
+  useEffect(() => {
+    try {
+      (async () => {
+        const resultReq = await requestGetUserInfo();
+        setUser({
+          userID: resultReq?.data?.userID,
+          avatar: resultReq?.data?.photo,
+          name: resultReq?.data?.name,
+        });
+      })();
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
+
   const renderAvt = () => {
     return (
       <Card style={styles.headerAvt}>
@@ -98,7 +124,19 @@ const UserScreen = () => {
     return (
       <Card style={styles.bodyAction}>
         {action.map((el) => (
-          <FormUser key={el.img} imagePath={el.img} title={el.title} />
+          <FormUser
+            onPress={() =>
+              NavigationUtil.navigate(
+                el.screen,
+                [el.screen] == SCREEN_ROUTER.CHAT_SCREEN && {
+                  params : user,
+                },
+              )
+            }
+            key={el.img}
+            imagePath={el.img}
+            title={el.title}
+          />
         ))}
         <TouchableOpacity onPress={handleLogOut}>
           <Text style={styles.logOut}>Đăng xuất</Text>

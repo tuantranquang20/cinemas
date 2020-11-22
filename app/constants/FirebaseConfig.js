@@ -177,19 +177,17 @@ class Fire {
     // reactotron.log(res)
   };
 
-  on = (callback) => {
-    var res = null;
-    this.ref(LIST_ID).on(
-      'value',
-      (snapshot) => (res = callback(snapshot.val())),
-    );
-    return res;
+  on = (idUser, callback) => {
+    // var res = null;
+    this.ref(LIST_ID)
+      .child(idUser)
+      .on('value', (snapshot) => callback(snapshot.val()));
+    // return res;
   };
 
   send = (userIDSend, userIDReceive) => (message, urlImage) => {
     var lengthObj = 0;
-    const idConversation = this.getIdConversation(userIDSend, userIDReceive); //14,15
-    // const idConversation = ""
+    const idConversation = this.getIdConversation(userIDSend, userIDReceive);
     reactotron.log(message, 'message');
     this.ref(CHAT_ROOM)
       .child(idConversation) //1415
@@ -385,22 +383,22 @@ class Fire {
             .child('read')
             .set(1);
         }
-        if (
-          userReceive?.device_id !== '0' &&
-          userReceive?.focus !== idConversation
-        ) {
-          // this.oneSignalPushNotify(data.text, userSend, userReceive?.device_id);
+        // if (
+        //   userReceive?.device_id !== '0' &&
+        //   userReceive?.focus !== idConversation
+        // ) {
+        //   // this.oneSignalPushNotify(data.text, userSend, userReceive?.device_id);
 
-          reactotron.log(
-            'oneSignalPushNotify',
-            !!userReceive?.device_id && userReceive?.focus !== idConversation,
-          );
-        } else {
-          reactotron.log(
-            'ko push',
-            !!userReceive?.device_id && userReceive?.focus == idConversation,
-          );
-        }
+        //   reactotron.log(
+        //     'oneSignalPushNotify',
+        //     !!userReceive?.device_id && userReceive?.focus !== idConversation,
+        //   );
+        // } else {
+        //   reactotron.log(
+        //     'ko push',
+        //     !!userReceive?.device_id && userReceive?.focus == idConversation,
+        //   );
+        // }
       });
     // reactotron.log(userReceive, 'userReceive')
   };

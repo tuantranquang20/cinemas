@@ -1,3 +1,4 @@
+import { colors } from '@app/constants/Theme';
 import * as React from 'react';
 import {scale} from 'react-native-size-matters';
 import Svg, {
@@ -9,7 +10,7 @@ import Svg, {
   Path,
   TSpan,
   Text,
-  Rect
+  Rect,
 } from 'react-native-svg';
 
 export function IconTicket(props) {
@@ -217,14 +218,46 @@ export function IconGG(props) {
             transform="translate(59.458 42.721)"
             fill="#fff"
             fontSize={19}
-            fontWeight={700}
-          >
+            fontWeight={700}>
             <TSpan x={-5.186} y={0}>
-              {"+"}
+              {'+'}
             </TSpan>
           </Text>
         </G>
       </G>
     </Svg>
-  )
+  );
 }
+
+export const IconSeat = ({
+  transSeatX,
+  transTextX,
+  transSeatY,
+  transTextY,
+  txt,
+  colorSeat,
+  index,
+  onPress,
+  seatTick
+}) => (
+  <G data-name={`Group ${index}`} onPress={onPress}>
+    <G
+      data-name="Rectangle 10"
+      transform={`translate(${transSeatX} ${transSeatY})`}
+      // fill={colorSeat}
+      fill={seatTick.includes(txt) ? colors.green : colorSeat}
+      stroke="#707070">
+      <Rect width={21} height={26} rx={5} stroke="none" />
+      <Rect x={0.5} y={0.5} width={20} height={25} rx={4.5} fill="none" />
+    </G>
+    <Text
+      transform={`translate(${transTextX} ${transTextY})`}
+      fill="#fff"
+      fontSize={11}
+      fontFamily="HelveticaNeue, Helvetica Neue">
+      <TSpan x={0} y={0}>
+        {txt}
+      </TSpan>
+    </Text>
+  </G>
+);

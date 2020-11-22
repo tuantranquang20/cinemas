@@ -1,45 +1,94 @@
-import React, {useEffect, useRef, useState, useCallback} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useState, useCallback} from 'react';
+import {useSelector} from 'react-redux';
+import {Image, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {GiftedChat} from 'react-native-gifted-chat';
 import Fire from '@app/constants/FirebaseConfig';
 import AsyncStorage from '@react-native-community/async-storage';
-const ChatScreen = () => {
+import reactotron from 'reactotron-react-native';
+import R from '@app/assets/R';
+import {scale} from 'react-native-size-matters';
+
+function isEmpty(obj) {
+  for (var key in obj) {
+    if (obj.hasOwnProperty(key)) return false;
+  }
+  return true;
+}
+
+const ChatScreen = (props) => {
+  const userParams = props.navigation.getParam('params');
+  // const userFB = useSelector((state) => state.userFBReducer);
+  const userApp = useSelector((state) => state.loginReducer);
+  console.log(userParams.userID, 'app');
   const [messages, setMessages] = useState([]);
-  const [user, setUser] = useState([]);
+  // const [user, setUser] = useState({});
+  // const userAppState = isEmpty(userApp.data)
+  //   ?
+  //   : userApp.data?.user;
 
-  // useEffect(async () => {
-  // socket.current = io('http://192.168.1.74:3001');
-  // socket.current.on('message', (message) => {
-  //   setMessages((preState) => GiftedChat.append(preState, message));
-  // });
-  //   try {
-  //     // const userId = AsyncStorage.
-  //   } catch (error) {
-
-  //   }
-  // }, []);
-  // useEffect(() => {
-  //   const userId = Math.floor(Math.random() * 100) + 1;
-  //   socket.current.emit('join', userId);
-  // }, []);
-  // const onSend = (messages) => {
-  //   socket.current.emit('message', messages[0].text);
-  //   setMessages((preState) => {
-  //     return GiftedChat.append(preState, messages); //này là cái append nó tự động đc thêm vào đầu của mảng [0]
-  //   });
-  // };
+  // (preState) => {
+  //   return GiftedChat.append(preState, message?.data);
+  // }
+  // console.log(userParams);
+  useEffect(() => {
+    Fire.shared.getConversation(
+      userParams?.userID,
+      userParams.userID == 2 ? 3 : 2,
+      (message) => {
+        setMessages(message?.data);
+      },
+    );
+  }, []);
+  const onSend = useCallback((messages = []) => {
+    setMessages((previousMessages) =>
+      GiftedChat.append(previousMessages, messages),
+    );
+    Fire.shared.send(
+      userParams.userID, //ng gửi
+      userParams.userID == 2 ? 3 : 2, //ng nhận, mặc định là admin đi
+    )(messages);
+  }, []);
   return (
     <GiftedChat
-      // renderUsernameOnMessage
+      placeholder="Nhập tin nhắn ..."
       messages={messages}
-      onSend={Fire.shared.send(
-        '5f2675c4ba7b5a13e98f8aea',
-        '5f2e90392fae600b7ed3fc33',
-      )}
+      inverted={false}
+      timeFormat="HH:mm:ss"
+      dateFormat="DD/MM/YYYY"
+      onSend={onSend}
       user={{
-        _id: '5f2675c4ba7b5a13e98f8aea',
-        name:"admin"
+        avatar: userParams.avatar,
+        name: userParams.name,
+        _id: userParams.userID, //thằng hiện tại đăng nhập vào
       }}
+      renderActions={() => (
+        <TouchableOpacity
+          style={{
+            width: 40,
+            height: 45,
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingLeft: 10,
+          }}
+          onPress={() => {}}>
+          <Image
+            resizeMode="contain"
+            style={{height: scale(30), width: scale(30)}}
+            source={R.images.ic_pick_image}
+          />
+        </TouchableOpacity>
+      )}
+      // renderChatFooter={() =>
+      //     <View>
+      //         {this.state.isImageUploading &&
+      //             <LottieView
+      //                 style={{ height: 3, width: theme.dimension.width }}
+      //                 source={require("../../assets/anims/progress_uploading.json")}
+      //                 autoPlay
+      //                 loop
+      //                 resizeMode={'cover'}
+      //             />}
+      //     </View>}
     />
   );
 };
